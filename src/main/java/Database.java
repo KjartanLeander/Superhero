@@ -3,7 +3,6 @@ import java.util.ArrayList;
 
 public class Database {
 
-
     private ArrayList<SuperHero> helteDatabase = new ArrayList<>();
 
     public void createTestData() {
