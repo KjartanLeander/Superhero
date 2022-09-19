@@ -15,9 +15,6 @@ public class Database {
         SuperHero hero = new SuperHero(superheltenavn, superheltealias, superheltekræfter, skabelsesår, styrkeniveau, højde, menneske);
         helteDatabase.add(hero);
 
-        /*for(SuperHero helt : helteDatabase) {
-           System.out.println(helt);}*/
-
     }
 
     public ArrayList<SuperHero> getallhelteDatabase() {

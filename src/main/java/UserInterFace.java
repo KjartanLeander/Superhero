@@ -10,6 +10,7 @@ public class UserInterFace {
     public void startProgram() {
         database.createTestData();
 
+
         do {
             menu();
             int startside = scanner.nextInt();
@@ -19,13 +20,18 @@ public class UserInterFace {
                 søgEfterSuperhelt3();
             } else if (startside == 5) {
                 listeOverhelte();
-            }else if (startside==7){
+            } else if (startside == 7) {
                 editSuperhero();
             } else if (startside == 9) {
                 lukProgrammet();
             }
 
         } while (true);
+    }
+
+    private void lukProgrammet() {
+        System.out.println("Lukker programmet...");
+        System.exit(0);
     }
 
     public void menu() {
@@ -82,10 +88,10 @@ public class UserInterFace {
             for (SuperHero superHero : searchReults) {
                 System.out.println("Superhelte Navn:" + superHero.getNavn());
                 System.out.println("Superhelte Alias:" + superHero.getAlias());
-                System.out.println("Superhelte skabelsesår:" +superHero.getSkabelsesår());
-                System.out.println("Superhelte styrkeniveau:"+superHero.getStyrkeniveau());
-                System.out.println("Superhelt højde:"+superHero.getHøjde());
-                System.out.println("Er superhelt menneske?:"+superHero.isMenneske());
+                System.out.println("Superhelte skabelsesår:" + superHero.getSkabelsesår());
+                System.out.println("Superhelte styrkeniveau:" + superHero.getStyrkeniveau());
+                System.out.println("Superhelt højde:" + superHero.getHøjde());
+                System.out.println("Er superhelt menneske?:" + superHero.isMenneske());
                 System.out.println("\n");
             }
         }
@@ -95,23 +101,99 @@ public class UserInterFace {
 
     public void listeOverhelte() {
         System.out.println("Liste over helte: " + "\n");
-        System.out.println(database.getallhelteDatabase());
-        scanner.nextLine();
-        String search = scanner.nextLine();
+        for (int i = 0; i < database.getallhelteDatabase().size(); i++) {
+            System.out.println(i + 1 + ": " + database.getallhelteDatabase().get(i));
+
+        }
+
 
     }
 
-    public void editSuperhero(){
-        System.out.println("Vælg superhelt du vil redigere:");
-        System.out.println(database.getallhelteDatabase());
+    public void editSuperhero() {
+        boolean writingError = false;
+        /*System.out.println("Indtast nummer for superhelt");
+        int number = scanner.nextInt();
+        scanner.nextLine();*/
+        {
+            System.out.println("Superheroes");
+            for (int i = 0; i < database.getallhelteDatabase().size(); i++) {
+                System.out.println(i + 1 + ": " + database.getallhelteDatabase().get(i));
+            }
 
-    }
-    public void lukProgrammet() {
-        System.out.println("Lukker programmet...");
-        System.exit(0);
+            System.out.print("Indtast nummer for superhelt: ");
+            int number = scanner.nextInt();
+            scanner.nextLine();
+
+            SuperHero editHero = database.getallhelteDatabase().get(number - 1);
+            System.out.println("Redigere superhelt information: " + editHero);
+
+            System.out.println("Indskriv ny data. Vil du ikke redigiere tryk Enter.");
+            System.out.println("Navn: " + editHero.getNavn());
+            String newNavn = scanner.nextLine();
+            if (!newNavn.isEmpty())
+                editHero.setNavn(newNavn);
+
+            System.out.println("Superhelte Alias:" + editHero.getAlias());
+            String newAlias = scanner.nextLine();
+            if (!newAlias.isEmpty())
+                editHero.setAlias(newAlias);
+
+            System.out.println("Superkræft: " + editHero.getSuperkræft());
+            String newSuperkræft = scanner.nextLine();
+            if (!newSuperkræft.isEmpty())
+                editHero.setSuperkræft(newSuperkræft);
+
+            System.out.println("Skabelsesår: " + editHero.getSkabelsesår());
+            do {
+                String newSkabelsesår = scanner.nextLine();
+                if (!newSkabelsesår.isEmpty()) {
+                    try {
+                        editHero.setSkabelsesår(Integer.parseInt(newSkabelsesår));
+                        writingError = false;
+
+                    } catch (NumberFormatException nfe) {
+                        System.out.println("Fejl opstået");
+                        System.out.println("Indtast skabelsesår i tal");
+                        writingError = true;
+                    }
+                }
+            } while (writingError == true);
+
+            System.out.println("Styrkeniveau: " + editHero.getStyrkeniveau());
+            do {
+                String newstyrkeniveau = scanner.nextLine();
+                if (!newstyrkeniveau.isEmpty()) {
+                    try {
+                        editHero.setStyrkeniveau(Double.parseDouble(newstyrkeniveau));
+                        writingError = false;
+                    } catch (NumberFormatException nfe) {
+                        System.out.println("Fejl opstået");
+                        System.out.println("Indtast styrkeniveau i tal");
+                        writingError = true;
+                    }
+                }
+            } while (writingError == true);
+
+            System.out.println("Højde:" + editHero.getHøjde());
+            do {
+                String newhøjde = scanner.nextLine();
+                if (!newhøjde.isEmpty()) {
+                    try{
+                    editHero.setHøjde(Double.parseDouble(newhøjde));
+                        writingError = false;
+                    } catch (NumberFormatException nfe) {
+                        System.out.println("Fejl opstået");
+                        System.out.println("Indtast højde i tal");
+                        writingError = true;
+                }
+            }
+            } while (writingError == true);
+
+            System.out.println("Menneske: " + editHero.isMenneske());
+            String newMenneske = scanner.nextLine();
+            if (!newMenneske.isEmpty())
+                editHero.isMenneske();
+        }
     }
 }
 
-/*public class Main {
-public static void main(String[] args) {
-}*/
