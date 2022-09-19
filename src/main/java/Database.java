@@ -1,13 +1,13 @@
-import javax.naming.directory.SearchControls;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Database {
-
+    Scanner scan = new Scanner(System.in);
     private ArrayList<SuperHero> helteDatabase = new ArrayList<>();
 
     public void createTestData() {
-        createSuperhero("Else", "Frozen", "Is", 2013, 2, 165, true);
-        createSuperhero("Robin", "Batmans bitch", "partner til rigmand", 1999, 0.5, 210, true);
+        createSuperhero("Elseman", "Frozen", "Is", 2013, 2, 165, true);
+        createSuperhero("Robinman", "Batmans sidekick", "partner til rigmand", 1999, 0.5, 210, true);
     }
 
     public void createSuperhero(String superheltenavn, String superheltealias, String superheltekræfter, int skabelsesår, double styrkeniveau, double højde, boolean menneske) {
@@ -24,23 +24,17 @@ public class Database {
         return helteDatabase;
     }
 
-    public SuperHero searchFor(String searchTerm) {
-        for (SuperHero helt : helteDatabase) {
-            if (searchTerm.contains(helt.getAlias())) {
-                return helt;
+    public ArrayList<SuperHero> searchFor(String searchTerm) {
+            ArrayList<SuperHero>searchResults = new ArrayList<>();
+            for(SuperHero superHero:helteDatabase){
+                String name = superHero.getNavn().toLowerCase();
+                if (name.contains(searchTerm.toLowerCase())) {
+                    searchResults.add(superHero);
+                }
             }
-            if (searchTerm.contains(helt.getNavn())){
-                return helt;
-            }
-            if (searchTerm.equalsIgnoreCase(helt.getAlias())) {
-                return helt;
-            }
-            if (searchTerm.equalsIgnoreCase(helt.getNavn())) {
-                return helt;
-            }
-        }
-        return null;
+       return searchResults;
+    }
 
     }
-}
+
 
