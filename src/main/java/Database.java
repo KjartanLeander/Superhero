@@ -22,16 +22,20 @@ public class Database {
     }
 
     public ArrayList<SuperHero> searchFor(String searchTerm) {
-            ArrayList<SuperHero>searchResults = new ArrayList<>();
-            for(SuperHero superHero:helteDatabase){
-                String name = superHero.getNavn().toLowerCase();
-                if (name.contains(searchTerm.toLowerCase())) {
-                    searchResults.add(superHero);
-                }
+        ArrayList<SuperHero> searchResults = new ArrayList<>();
+        for (SuperHero superHero : helteDatabase) {
+            String name = superHero.getNavn().toLowerCase();
+            if (name.contains(searchTerm.toLowerCase())) {
+                searchResults.add(superHero);
             }
-       return searchResults;
+        }
+        return searchResults;
     }
 
+    public boolean deleteSuperhero(SuperHero superHero) {
+        boolean success = true;
+        return success;
     }
+}
 
 
