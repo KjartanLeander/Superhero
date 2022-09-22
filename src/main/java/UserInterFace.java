@@ -22,6 +22,8 @@ public class UserInterFace {
                         lavSuperHelt1();
                     } else if (menu == 3) {
                         søgEfterSuperhelt3();
+                    } else if (menu == 4) {
+                        deleteSuperhero();
                     } else if (menu == 5) {
                         listeOverhelte();
                     } else if (menu == 7) {
@@ -51,6 +53,7 @@ public class UserInterFace {
         System.out.println("Velkommen til MySuperheroList");
         System.out.println("1. Opret Superhelte");
         System.out.println("3. Search for superhero");
+        System.out.println("4. Slet superhelt");
         System.out.println("5. Liste over helte");
         System.out.println("7. Redigere superhelt");
         System.out.println("9. Luk programmet");
@@ -162,10 +165,7 @@ public class UserInterFace {
         System.out.println("Liste over helte: " + "\n");
         for (int i = 0; i < database.getallhelteDatabase().size(); i++) {
             System.out.println(i + 1 + ": " + database.getallhelteDatabase().get(i));
-
         }
-
-
     }
 
     public void editSuperhero() {
@@ -177,11 +177,11 @@ public class UserInterFace {
         }
 
         System.out.print("Indtast nummer for superhelt: ");
-        int number =0;
-        SuperHero editHero=null;
+        int number = 0;
+        SuperHero editHero = null;
         do {
             try {
-                number=scanner.nextInt();
+                number = scanner.nextInt();
                 scanner.nextLine();
                 writingError = false;
                 editHero = database.getallhelteDatabase().get(number - 1);
@@ -190,7 +190,7 @@ public class UserInterFace {
                 System.out.println("Indtast tal");
                 scanner.nextLine();
                 writingError = true;
-            }catch ( IndexOutOfBoundsException ibe) {
+            } catch (IndexOutOfBoundsException ibe) {
                 System.out.println("Fejl opstået");
                 System.out.println("Indtast gyldigt tal");
                 writingError = true;
@@ -276,6 +276,35 @@ public class UserInterFace {
                 }
             }
         } while (writingError == true);
+    }
+
+    public void deleteSuperhero() {
+        String searchTerm = scanner.nextLine();
+        ArrayList<SuperHero> searchresults = database.searchFor(searchTerm);
+        boolean writingError = false;
+        do {
+            try {
+                if (searchresults.isEmpty()) {
+                    System.out.println("Ingen resultater fundet med søgeterm: " + searchTerm);
+                } else {
+                    System.out.println("Vælg den superhelt du vil slette:(skriv tal udefra superhelt) ");
+                    int index = 1;
+                    for (SuperHero searchResults : searchresults) {
+                        System.out.println(index++ + ") " + searchResults.getNavn());
+                    }
+                }
+            }catch (NumberFormatException nfe) {
+                System.out.println("Fejl opstået");
+                System.out.println("Indtast tal for superhelt");
+                writingError = true;
+            }
+        } while (writingError == true);
+
+        int superheroPick = 1;
+        superheroPick = Integer.parseInt(scanner.nextLine());
+        SuperHero deleteSuperhero = searchresults.get(superheroPick - 1);
+        database.deleteSuperhero(deleteSuperhero);
+        System.out.println(deleteSuperhero.getNavn() + " er nu slettet fra databasen");
     }
 }
 

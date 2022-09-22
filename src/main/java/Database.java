@@ -33,8 +33,10 @@ public class Database {
     }
 
     public boolean deleteSuperhero(SuperHero superHero) {
+        getallhelteDatabase().remove(superHero);
         boolean success = true;
         return success;
+
     }
 }
 
