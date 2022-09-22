@@ -286,25 +286,25 @@ public class UserInterFace {
             try {
                 if (searchresults.isEmpty()) {
                     System.out.println("Ingen resultater fundet med søgeterm: " + searchTerm);
+                    writingError = false;
                 } else {
                     System.out.println("Vælg den superhelt du vil slette:(skriv tal udefra superhelt) ");
                     int index = 1;
                     for (SuperHero searchResults : searchresults) {
                         System.out.println(index++ + ") " + searchResults.getNavn());
+                        writingError = false;
                     }
+                    int superheroPick = 1;
+                    superheroPick = Integer.parseInt(scanner.nextLine());
+                    SuperHero deleteSuperhero = searchresults.get(superheroPick - 1);
+                    database.deleteSuperhero(deleteSuperhero);
+                    System.out.println(deleteSuperhero.getNavn() + " er nu slettet fra databasen");
                 }
             }catch (NumberFormatException nfe) {
                 System.out.println("Fejl opstået");
-                System.out.println("Indtast tal for superhelt");
                 writingError = true;
             }
         } while (writingError == true);
-
-        int superheroPick = 1;
-        superheroPick = Integer.parseInt(scanner.nextLine());
-        SuperHero deleteSuperhero = searchresults.get(superheroPick - 1);
-        database.deleteSuperhero(deleteSuperhero);
-        System.out.println(deleteSuperhero.getNavn() + " er nu slettet fra databasen");
     }
 }
 
