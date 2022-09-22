@@ -13,11 +13,9 @@ public class UserInterFace {
         boolean writingError;
         do {
             do {
-
                 startside();
                 try {
                     int menu = scanner.nextInt();
-                    scanner.nextLine();
                     if (menu == 1) {
                         lavSuperHelt1();
                     } else if (menu == 3) {
@@ -138,10 +136,9 @@ public class UserInterFace {
     }
 
     public void søgEfterSuperhelt3() {
-
+        scanner.nextLine();
         System.out.println("Search for Superhero: " + "\n");
         String search = scanner.nextLine();
-
         ArrayList<SuperHero> searchReults = database.searchFor(search);
         if (searchReults.isEmpty()) {
             System.out.println("No superheroes matching search was found");
